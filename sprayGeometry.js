@@ -35,7 +35,7 @@ sprayGeometry = function(geometry, options){
 	
 	var p = new THREE.Vector3(), pa = new THREE.Vector3(), pb = new THREE.Vector3(), p= new THREE.Vector3(), 
 		p1= new THREE.Vector3();
-	
+	//LOOP
 	for(var i=0; i<n; i++){
 		if(i%l == 0 && j<fl-1){
 			j=(i==0)?j:j+1;
