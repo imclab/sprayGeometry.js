@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>sprayGeometry() function for Three.js</title>
+<style>
+html {
+	color: #fff;
+}
+body {
+	font-family: Monospace;
+	background-color: #000;
+	margin: 0px;	
+	overflow: hidden;
+}
+
+#info {
+	font: 14px bold;
+	font-family: OCR A Std, Verdana;
+	position: absolute;
+	z-index: 2;
+	margin-top: 5px;
+	left: 30%;
+}
+
+a:link {color:#6078cc; text-align:center; text-decoration:none; cursor:pointer;}
+a:visited {color:#6078cc;}
+a:hover {color:#ddddff;} 
+a:active {color:#ddddff;}
+</style>
+</head>
+<body>
+
+<div id="container">
+	<div id="info">sprayGeometry() function - <a href="http://pi-note.com/" target="_blank">pi-note.com</a> | in <a href="http://github.com/mrdoob/three.js" target="_blank">three.js</a></div>
+</div>
+
+<script src="../build/three.min.js"></script>
+<script src="../sprayGeometry.js"></script>
+
+<script>
+
+var container = document.getElementById("container");
+var camera, scene, renderer;
+var spray, sprayGeo, mat;
+
+
+init();
+render();
+
+function init(){
+//preparing 3D
+scene = new THREE.Scene();
+camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 30000);
+controls = new THREE.TrackballControls(camera, container);
+camera.position.set(1500,0, 1500);
+camera.rotation.y = -1.5;
+
+scene.add(camera);
+
+//objects
+createSprayExample();	
+	
+//renderer
+renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+container.appendChild(renderer.domElement);
+
+window.addEventListener( 'resize', onWindowResize, false );
+
+}
+
+function onWindowResize() {
+
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+
+	renderer.setSize( window.innerWidth, window.innerHeight );
+
+}
+
+function createSprayExample(){
+	var sprite = THREE.ImageUtils.loadTexture( "disc.png" );
+	mat = new THREE.ParticleBasicMaterial( { size: 2, map: sprite, blending: THREE.AdditiveBlending, depthTest: false, transparent : true} );
+	mat.color.setHSV( 0.65, 0.7, 0.6 );
+
+	geoSpray = sprayGeometry(new THREE.TetrahedronGeometry(200),
+			{wireFrame:true, multiplier: 200,  fun:"funA"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.TetrahedronGeometry(200),
+			{wireFrame:true, multiplier: 200,  fun:"fun1"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(640,640,250);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.TetrahedronGeometry(200),
+			{wireFrame:true, multiplier: 200,  fun:"fun2"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(-640,-640,-350);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.TorusGeometry(300,100),
+			{wireFrame:true, multiplier: 200,  fun:"fun3"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.TorusGeometry(300,100),
+			{wireFrame:true, multiplier: 200,  fun:"fun4"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(640,640,0);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.TorusGeometry(300,100),
+			{wireFrame:true, multiplier: 200,  fun:"fun5"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(-640,-640,0);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.SphereGeometry(300),
+			{wireFrame:true, multiplier: 400,  fun:"fun7"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(-640,-640,640);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.SphereGeometry(300),
+			{wireFrame:true, multiplier: 400, area:true, extrude:250, percentage: new THREE.Vector2(50,60)});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(0, 0, 640);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.SphereGeometry(300),
+			{wireFrame:true, multiplier: 200, frame: -0.15, percentage: new THREE.Vector2(90,95)});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(640, 640, 640);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.SphereGeometry(150),
+			{wireFrame:true, multiplier: 200, fun:"fun1"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(200, 200, -340);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.IcosahedronGeometry(200),
+			{wireFrame:true, multiplier: 200,  fun:"funB", percentage: new THREE.Vector2(35,90)});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(-200,-200,-640);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.CubeGeometry(150,150,150),
+			{wireFrame:true, multiplier: 200,  fun:"funB", percentage: new THREE.Vector2(25,90)});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(-200,-200,-640);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.CubeGeometry(150,150,150),
+			{wireFrame:true, multiplier: 200,  fun:"fun9"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(-640,-640,-640);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.CubeGeometry(150,300,150),
+			{wireFrame:true, multiplier: 400, fun: "funA", percentage: new THREE.Vector2(60,80)});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(200, 200, -640);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.CubeGeometry(150,300,150),
+			{wireFrame:true, multiplier: 80, area: true, extrude: 75, percentage:new THREE.Vector2(60,75)});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(-200, -200, -340);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.CubeGeometry(150,150,300),
+			{wireFrame:true, multiplier: 80, area: true, extrude: 75, extrudeOut: true, percentage:new THREE.Vector2(60,65)});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(0, 0, -600);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.CubeGeometry(150,150,150),
+			{wireFrame:true, multiplier: 400, fun: "fun8"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(640, 640, -640);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.PlaneGeometry(250,250,2, 2),
+			{wireFrame:true, multiplier: 250, fun: "fun4"});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(640, 640, -300);
+	scene.add(spray);
+	
+	geoSpray = sprayGeometry(new THREE.PlaneGeometry(250,250,5, 5),
+		{wireFrame:true, multiplier: 250, area: true, frame: 0.50, innerFrame: true, percentage: new THREE.Vector2(98,99)});
+	spray = new THREE.ParticleSystem(geoSpray, mat);
+	spray.position.set(-640, -640, 250);
+	spray.rotation.x = 3.14/2;
+	spray.rotation.y = 3.14/4;
+	scene.add(spray);
+	
+}
+
+function animate(){
+var timer = Date.now() * 0.00001;
+
+for ( var i = 1, l = scene.children.length; i < l; i ++ ) {
+
+	var object = scene.children[ i ];
+		object.rotation.x = timer * 5;
+		object.rotation.y = timer * 2.5;
+	}
+}
+
+
+function render(){
+
+animate();		
+controls.update();
+requestAnimationFrame(render);
+renderer.render(scene, camera);
+
+}
+</script>
+</body>
+</html>
