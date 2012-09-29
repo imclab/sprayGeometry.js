@@ -48,8 +48,8 @@ sprayGeometry = function(geometry, options){
 		a = i%f; 
 		b = (i+1)%f;
 		
-		pa.set(vertices[fi[i%f]].x, vertices[fi[i%f]].y, vertices[fi[i%f]].z);
-		pb.set(vertices[fi[(i+1)%f]].x, vertices[fi[(i+1)%f]].y, vertices[fi[(i+1)%f]].z);
+		pa.set(vertices[fi[a]].x, vertices[fi[a]].y, vertices[fi[a]].z);
+		pb.set(vertices[fi[b]].x, vertices[fi[b]].y, vertices[fi[b]].z);
 
 		t = Math.random();	
 		p.copy(pb).subSelf(pa).multiplyScalar(t).addSelf(pa);
