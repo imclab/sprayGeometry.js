@@ -21,7 +21,7 @@ sprayGeometry = function(geometry, options){
 	var iInner = (bInner)?0:1;
 	var iOut = (bOut)?1:-1;
 	if(iExtrude)bArea=true;
-	if(sFun=="funA" || "sFunB")bArea=true;
+	if(sFun=="funA" || sFun=="sFunB")bArea=true;
 	// INTERNAL VARIABLES
 	var sprayGeometry = new THREE.Geometry();	
 	
