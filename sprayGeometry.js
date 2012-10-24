@@ -64,7 +64,7 @@ sprayGeometry = function(geometry, options){
 		
 		if(!sFun || sFun=="funA" || sFun=="funB")
 		if(r<vPerc.x && fFrame){
-			t1 = iInner+Math.random()*fFrame;
+			t1 = iInner-Math.random()*fFrame;
 			
 			p.subSelf(c).multiplyScalar(t1).addSelf(c);
 		}else if(((r>vPerc.x && bArea) || !bWireFrame)){
