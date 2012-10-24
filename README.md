@@ -1,3 +1,5 @@
+Parameters:
+
 geometry -> Any kind of geometry as first parameter (for now it must have at least 2 faces in order to work)
 
 int multiplier -> the higher is this number, the higher is the number of particles (the number is multiplied by 120)
